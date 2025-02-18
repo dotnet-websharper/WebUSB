@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WebSharper.WebUSB", "WebSharper.WebUSB\WebSharper.WebUSB.fsproj", "{34750790-AFC6-4709-B793-9B66B693A572}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WebSharper.WebUSB.Sample", "WebSharper.WebUSB.Sample\WebSharper.WebUSB.Sample.fsproj", "{3254A2C3-33C4-4C03-A51C-D43297FCD161}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{34750790-AFC6-4709-B793-9B66B693A572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34750790-AFC6-4709-B793-9B66B693A572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34750790-AFC6-4709-B793-9B66B693A572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

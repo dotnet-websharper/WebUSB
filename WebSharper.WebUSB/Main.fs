@@ -119,6 +119,18 @@ module Definition =
             "status" =? Enum.USBTransferStatus   
         ]
 
+    let USBControlTransferSetup =
+        Pattern.Config "USBControlTransferSetup" {
+            Required = []
+            Optional = [
+                "requestType", T<string>  
+                "recipient", T<string>    
+                "request", T<int>         
+                "value", T<int>           
+                "index", T<int>
+            ]
+        }
+
     USBDevice 
     |+> Instance [        
         "configuration" =? USBConfiguration 
@@ -141,30 +153,30 @@ module Definition =
         
         "claimInterface" => T<int>?interfaceNumber ^-> T<Promise<unit>> 
         "clearHalt" => Enum.Direction?direction * T<int>?endpointNumber ^-> T<Promise<unit>> 
-        "controlTransferIn" => T<obj>?setup * T<int>?length ^-> T<Promise<_>>[USBInTransferResult] 
-        "controlTransferOut" => (T<obj>?setup * !? T<ArrayBuffer>?data) ^-> T<Promise<obj>> 
+        "controlTransferIn" => !?USBControlTransferSetup?setup * T<int>?length ^-> T<Promise<_>>[USBInTransferResult] 
+        "controlTransferOut" => !?USBControlTransferSetup?setup * !? T<ArrayBuffer>?data ^-> T<Promise<_>>[USBInTransferResult] 
         "close" => T<unit> ^-> T<Promise<unit>> 
         "forget" => T<unit> ^-> T<Promise<unit>> 
-        "isochronousTransferIn" => (T<int>?endpointNumber * T<int>?packetLengths) ^-> T<Promise<obj>> 
-        "isochronousTransferOut" => (T<int>?endpointNumber * T<ArrayBuffer>?data) ^-> T<Promise<obj>> 
+        "isochronousTransferIn" => T<int>?endpointNumber * T<int>?packetLengths ^-> T<Promise<unit>> 
+        "isochronousTransferOut" => T<int>?endpointNumber * T<ArrayBuffer>?data * T<int>?packetLengths ^-> T<Promise<unit>> 
         "open" => T<unit> ^-> T<Promise<unit>> 
         "releaseInterface" => T<int>?interfaceNumber ^-> T<Promise<unit>> 
         "reset" => T<unit> ^-> T<Promise<unit>> 
-        "selectAlternateInterface" => (T<int>?interfaceNumber * T<int>?alternateSetting) ^-> T<Promise<unit>> 
+        "selectAlternateInterface" => T<int>?interfaceNumber * T<int>?alternateSetting ^-> T<Promise<unit>> 
         "selectConfiguration" => T<int>?configurationValue ^-> T<Promise<unit>> 
-        "transferIn" => (T<int>?endpointNumber * T<int>?length) ^-> T<Promise<obj>> 
-        "transferOut" => (T<int>?endpointNumber * T<ArrayBuffer>?data) ^-> T<Promise<obj>> 
+        "transferIn" => T<int>?endpointNumber * T<int>?length ^-> T<Promise<unit>> 
+        "transferOut" => T<int>?endpointNumber * T<ArrayBuffer>?data ^-> T<Promise<unit>> 
     ] |> ignore
 
     let USBDeviceFilter =
         Pattern.Config "USBDeviceFilter" {
             Required = []
             Optional = [
-                "vendorId", T<int>  
-                "productId", T<int> 
-                "classCode", T<int> 
-                "subclassCode", T<int> 
-                "protocolCode", T<int> 
+                "vendorId", T<string>  
+                "productId", T<string> 
+                "classCode", T<string> 
+                "subclassCode", T<string> 
+                "protocolCode", T<string> 
                 "serialNumber", T<string> 
             ]
         }
@@ -174,7 +186,7 @@ module Definition =
         |=> Inherits T<Dom.EventTarget> 
         |+> Instance [
             "getDevices" => T<unit> ^-> T<Promise<_>>[!|USBDevice] 
-            "requestDevice" => (!|USBDeviceFilter)?filters ^-> T<Promise<_>>[USBDevice] 
+            "requestDevice" => (!|T<obj>)?filters ^-> T<Promise<_>>[USBDevice] 
         ]
     
     let Navigator =
@@ -196,6 +208,7 @@ module Definition =
                 Navigator
                 USB
                 USBDeviceFilter
+                USBControlTransferSetup
                 USBOutTransferResult
                 USBInTransferResult
                 USBConfiguration
