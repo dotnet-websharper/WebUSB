@@ -27,8 +27,6 @@ To use this package in your WebSharper project, add the NuGet package:
 ### Prerequisites
 
 - [.NET SDK](https://dotnet.microsoft.com/download) installed on your machine.
-- Node.js and npm (for building web assets).
-- WebSharper tools.
 
 ### Steps
 
@@ -107,17 +105,3 @@ module Client =
 ```
 
 This example demonstrates how to request and connect to a USB device using the WebUSB API in a WebSharper project.
-
-## Important Considerations
-
-- **Permissions**: Users must grant permission for USB access when prompted by the browser.
-- **Secure Context**: The WebUSB API only works on secure origins (HTTPS) for security reasons.
-- **Limited Browser Support**: Some browsers may not fully support the WebUSB API; check [MDN WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API) for the latest compatibility information.
-
-## License
-
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE.md) file for details.
-
-## Acknowledgments
-
-Special thanks to the WebSharper team and contributors for their efforts in enabling seamless integration of APIs into F# projects.
