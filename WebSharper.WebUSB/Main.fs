@@ -187,6 +187,11 @@ module Definition =
         |+> Instance [
             "getDevices" => T<unit> ^-> T<Promise<_>>[!|USBDevice] 
             "requestDevice" => (!|T<obj>)?filters ^-> T<Promise<_>>[USBDevice] 
+
+            "onconnect" =@ T<unit> ^-> T<unit>
+            "onconnect" =@ USBConnectionEvent ^-> T<unit>
+            "ondisconnect" =@ T<unit> ^-> T<unit>
+            "ondisconnect" =@ USBConnectionEvent ^-> T<unit>
         ]
     
     let Navigator =
