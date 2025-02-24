@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Web USB API Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="Content/WebSharper.WebUSB.Sample.css" />
+    <style>
+        /* Don't show the not-yet-loaded templates */
+        [ws-template], [ws-children-template] { display: none; }
+    </style>
+    <script type="text/javascript" src="Content/WebSharper.WebUSB.Sample.head.js"></script>
+</head>
+<body>
+    <h1>Web USB Demo</h1>
+    <div id="main" ws-children-template="Main">
+        <button ws-onclick="connectUSB">Connect USB Device</button>
+        <button ws-onclick="sendUSBData">Send Data</button>
+        <p id="status">${status}</p>
+    </div>
+    <script type="text/javascript" src="Content/WebSharper.WebUSB.Sample.min.js"></script>
+</body>
+</html>
