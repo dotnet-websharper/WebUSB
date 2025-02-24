@@ -189,9 +189,13 @@ module Definition =
             "requestDevice" => (!|T<obj>)?filters ^-> T<Promise<_>>[USBDevice] 
 
             "onconnect" =@ T<unit> ^-> T<unit>
-            "onconnect" =@ USBConnectionEvent ^-> T<unit>
+            |> ObsoleteWithMessage "Use OnConnect instead"
+            "onconnect" =@ !?(USBConnectionEvent ^-> T<unit>)
+            |> WithSourceName "OnConnect"
             "ondisconnect" =@ T<unit> ^-> T<unit>
-            "ondisconnect" =@ USBConnectionEvent ^-> T<unit>
+            |> ObsoleteWithMessage "Use OnDisonnect instead"
+            "ondisconnect" =@ !?(USBConnectionEvent ^-> T<unit>)
+            |> WithSourceName "OnDisonnect"
         ]
     
     let Navigator =
