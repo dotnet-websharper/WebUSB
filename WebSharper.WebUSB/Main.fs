@@ -197,24 +197,10 @@ module Definition =
             "ondisconnect" =@ !?(USBConnectionEvent ^-> T<unit>)
             |> WithSourceName "OnDisonnect"
         ]
-    
-    let Navigator =
-        Class "Navigator"
-        |+> Instance [
-            "usb" =? USB 
-        ]
-
-    let WorkerNavigator =
-        Class "WorkerNavigator"
-        |+> Instance [
-            "usb" =? USB 
-        ]
 
     let Assembly =
         Assembly [
             Namespace "WebSharper.WebUSB" [
-                WorkerNavigator
-                Navigator
                 USB
                 USBDeviceFilter
                 USBControlTransferSetup

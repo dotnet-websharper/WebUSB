@@ -7,6 +7,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WebSharper.WebUSB", "WebSha
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WebSharper.WebUSB.Sample", "WebSharper.WebUSB.Sample\WebSharper.WebUSB.Sample.fsproj", "{3254A2C3-33C4-4C03-A51C-D43297FCD161}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WebSharper.WebUSB.Extensions", "WebSharper.WebUSB.Extensions\WebSharper.WebUSB.Extensions.fsproj", "{02C79926-6AB3-4EA4-A9DD-BEA079477EAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3254A2C3-33C4-4C03-A51C-D43297FCD161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C79926-6AB3-4EA4-A9DD-BEA079477EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C79926-6AB3-4EA4-A9DD-BEA079477EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C79926-6AB3-4EA4-A9DD-BEA079477EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C79926-6AB3-4EA4-A9DD-BEA079477EAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

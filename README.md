@@ -64,44 +64,81 @@ namespace WebSharper.WebUSB.Sample
 open WebSharper
 open WebSharper.JavaScript
 open WebSharper.UI
+open WebSharper.UI.Notation
 open WebSharper.UI.Client
 open WebSharper.UI.Templating
 open WebSharper.WebUSB
 
 [<JavaScript>]
 module Client =
-    // Define the connection to the HTML template
+    // The templates are loaded from the DOM, so you just can edit index.html
+    // and refresh your browser, no need to recompile unless you add or remove holes.
     type IndexTemplate = Template<"wwwroot/index.html", ClientLoad.FromDocument>
 
     // Variable to display USB connection status
-    let statusMessage = Var.Create "Click the button to connect to a USB device."
+    let statusMessage = Var.Create "Waiting for connection..."
+    let device = Var.Create<USBDevice> JS.Undefined
 
     // Function to request a USB device connection
-    let connectUSB () =
+    let connectUSB() =
         promise {
             try
-                let usb = As<Navigator>(JS.Window.Navigator).Usb
-                let! device = usb.RequestDevice(USBDeviceRequestOptions(Filters = [||]))
-                do! device.Open()
-                statusMessage := "Connected to USB device!"
-            with ex ->
-                Console.Error("USB connection failed:", ex.Message)
-                statusMessage := "USB connection failed!"
+                let requestOptions = {| filters = [||] |} |> As<obj array>
+
+                let! selectedDevice  = JS.Window.Navigator.Usb.RequestDevice(requestOptions)
+
+                do! selectedDevice.Open()
+                do! selectedDevice.SelectConfiguration(1)
+                do! selectedDevice.ClaimInterface(0)
+
+                device := selectedDevice
+
+                statusMessage := $"Connected to USB device: ${device.Value.ProductName}"
+                printfn($"USB Device Connected: {device.Value}")
+            with error ->
+                statusMessage := $"Connection Failed: {error.Message}"
+                printfn($"USB Connection Error: {error}")
+        }
+
+    // Function to send data to a USB device
+    let sendUSBData() =
+        promise {
+            if isNull (device.Value) then
+                statusMessage := "Please connect a USB device first."
+
+            else
+                try
+                    let encoder = JS.Eval "new TextEncoder()"
+                    let data = encoder?encode("Hello USB!")
+
+                    do! device.Value.TransferOut(1, data)
+                    statusMessage := "Data sent to USB device."
+                    printfn($"Data sent: {data}")
+                with error ->
+                    statusMessage := $"Data transfer failed: {error.Message}"
+                    printfn($"USB Data Transfer Error: {error}")
         }
 
     [<SPAEntryPoint>]
     let Main () =
-        // Initialize the UI template and bind USB connection status
+
         IndexTemplate.Main()
+            .status(statusMessage.V)
             .connectUSB(fun _ ->
                 async {
                     do! connectUSB().AsAsync()
                 }
-                |> Async.Start
+                |> Async.StartImmediate
             )
-            .status(statusMessage.V)
+            .sendUSBData(fun _ ->
+                async {
+                    do! sendUSBData().AsAsync()
+                }
+                |> Async.StartImmediate
+            )
             .Doc()
         |> Doc.RunById "main"
+
 ```
 
 This example demonstrates how to request and connect to a USB device using the WebUSB API in a WebSharper project.

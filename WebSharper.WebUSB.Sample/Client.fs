@@ -14,17 +14,17 @@ module Client =
     // and refresh your browser, no need to recompile unless you add or remove holes.
     type IndexTemplate = Template<"wwwroot/index.html", ClientLoad.FromDocument>
 
+    // Variable to display USB connection status
     let statusMessage = Var.Create "Waiting for connection..."
     let device = Var.Create<USBDevice> JS.Undefined
 
-    let usb = As<Navigator>(JS.Window.Navigator).Usb
-
+    // Function to request a USB device connection
     let connectUSB() = 
         promise {
             try 
                 let requestOptions = {| filters = [||] |} |> As<obj array>
 
-                let! selectedDevice  = usb.RequestDevice(requestOptions)
+                let! selectedDevice  = JS.Window.Navigator.Usb.RequestDevice(requestOptions)
 
                 do! selectedDevice.Open()
                 do! selectedDevice.SelectConfiguration(1)
@@ -39,6 +39,7 @@ module Client =
                 printfn($"USB Connection Error: {error}")
         }
 
+    // Function to send data to a USB device
     let sendUSBData() =
         promise {
             if isNull (device.Value) then
