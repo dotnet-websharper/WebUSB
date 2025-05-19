@@ -1,0 +1,22 @@
+type file
+id WebSharper.WebUSB
+authors
+    IntelliFactory
+owners
+    IntelliFactory
+repositoryType git
+repositoryUrl https://github.com/dotnet-websharper/webusb/
+licenseUrl https://github.com/dotnet-websharper/webusb/blob/master/LICENSE.md
+iconUrl https://github.com/dotnet-websharper/core/raw/websharper50/tools/WebSharper.png
+projectUrl https://github.com/dotnet-websharper/webusb
+description
+    WebSharper bindings for the WebUSB API
+tags
+    Web JavaScript F# C#
+files
+    ../WebSharper.WebUSB/bin/Release/netstandard2.0/WebSharper.WebUSB.dll ==> lib/netstandard2.0
+    ../WebSharper.WebUSB/bin/Release/netstandard2.0/WebSharper.WebUSB.xml ==> lib/netstandard2.0
+    ../WebSharper.WebUSB.Extensions/bin/Release/netstandard2.0/WebSharper.WebUSB.Extensions.dll ==> lib/netstandard2.0
+    ../WebSharper.WebUSB.Extensions/bin/Release/netstandard2.0/WebSharper.WebUSB.Extensions.xml ==> lib/netstandard2.0
+dependencies
+        WebSharper ~> LOCKEDVERSION:[3]
